@@ -3,6 +3,13 @@
         respond "Caddy is working!" 200
     }
 
+    handle /proxy-test {
+        rewrite * /get
+        reverse_proxy https://httpbin.org {
+            header_up Host httpbin.org
+        }
+    }
+
     handle {
         root * /www
         file_server
